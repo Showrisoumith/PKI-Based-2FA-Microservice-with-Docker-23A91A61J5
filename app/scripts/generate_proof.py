@@ -1,15 +1,18 @@
-# # scripts/generate_proof.py
+# scripts/generate_proof.py
 
 import sys
 import os
+import subprocess # <- REQUIRED for git log
+import base64     # <- REQUIRED for base64.b64encode
+
+# CRITICAL FIX: Adds the project root to the search path to find 'app'
 sys.path.append(os.getcwd()) 
 
-# --- CRITICAL CHANGE IS HERE ---
+# This line imports functions from your utility file
+# NOTE: Assuming your utility file is named crypto_utils.py (not cryptos_utils.py)
 from app.crypto_utils import sign_message, encrypt_with_public_key, load_private_key, load_public_key 
-# ------------------------------
 
-# ... rest of the script ...
-# --- End of Imports ---
+# --- Constants ---
 STUDENT_PRIVATE_KEY_PATH = "student_private.pem"
 INSTRUCTOR_PUBLIC_KEY_PATH = "instructor_public.pem"
 
@@ -18,7 +21,13 @@ def generate_commit_proof():
 
     # 1. Get current commit hash
     try:
-        result = subprocess.run(['git', 'log', '-1', '--format=%H'], capture_output=True, text=True, check=True)
+        # Use subprocess to execute the git command
+        result = subprocess.run(
+            ['git', 'log', '-1', '--format=%H'], 
+            capture_output=True, 
+            text=True, 
+            check=True
+        )
         commit_hash = result.stdout.strip()
     except subprocess.CalledProcessError:
         print("ERROR: Git command failed. Ensure your code is committed.")
