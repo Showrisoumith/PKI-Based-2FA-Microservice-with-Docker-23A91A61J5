@@ -1,15 +1,14 @@
-# scripts/generate_proof.py
+# # scripts/generate_proof.py
 
 import sys
 import os
-import subprocess
-import base64
-# This line is critical to fix the ModuleNotFoundError: 'app'
 sys.path.append(os.getcwd()) 
 
-# Correct import for the utility functions
+# --- CRITICAL CHANGE IS HERE ---
 from app.crypto_utils import sign_message, encrypt_with_public_key, load_private_key, load_public_key 
+# ------------------------------
 
+# ... rest of the script ...
 # --- End of Imports ---
 STUDENT_PRIVATE_KEY_PATH = "student_private.pem"
 INSTRUCTOR_PUBLIC_KEY_PATH = "instructor_public.pem"
