@@ -2,11 +2,12 @@
 
 import sys
 import os
+sys.path.append(os.getcwd()) 
 import subprocess # <- REQUIRED for git log
 import base64     # <- REQUIRED for base64.b64encode
 
 # CRITICAL FIX: Adds the project root to the search path to find 'app'
-sys.path.append(os.getcwd()) 
+
 
 # This line imports functions from your utility file
 # NOTE: Assuming your utility file is named crypto_utils.py (not cryptos_utils.py)
